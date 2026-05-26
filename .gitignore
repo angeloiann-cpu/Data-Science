@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# LaTeX build files
+
+paper/output/*.aux
+paper/output/*.log
+paper/output/*.fls
+paper/output/*.fdb_latexmk
+paper/output/*.synctex.gz
+paper/output/*.toc
