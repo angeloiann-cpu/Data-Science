@@ -216,5 +216,107 @@ CTRL + ALT + V
 # Automatic Package Installation
 
 TinyTeX automatically installs missing LaTeX packages when compiling.
-
 This keeps the installation lightweight while remaining fully functional.
+
+# Bibliography and References
+
+The project uses a BibTeX bibliography file:
+
+```text
+paper/references.bib
+```
+
+This file stores all academic references used in the paper.
+
+---
+
+# Why Use a `.bib` File?
+
+Using BibTeX allows us to:
+
+- centrally manage references
+- automatically generate citations
+- avoid manually formatting bibliographies
+- collaborate more easily on academic writing
+
+---
+
+# Example Workflow
+
+## 1. Add a Reference to `references.bib`
+
+Example:
+
+```bibtex
+@article{fama1970,
+  title={Efficient Capital Markets: A Review of Theory and Empirical Work},
+  author={Fama, Eugene F.},
+  journal={The Journal of Finance},
+  volume={25},
+  number={2},
+  pages={383--417},
+  year={1970}
+}
+```
+
+---
+
+## 2. Cite the Reference in `paper.tex`
+
+Inside the LaTeX document:
+
+```latex
+\cite{fama1970}
+```
+
+---
+
+## 3. Generate the Bibliography
+
+At the end of `paper.tex`:
+
+```latex
+\bibliographystyle{plainnat}
+\bibliography{references}
+```
+
+---
+
+# Useful Reference Sources
+
+References can often be exported directly as BibTeX from:
+- Google Scholar
+- Semantic Scholar
+- arXiv
+- JSTOR
+- publisher websites
+
+Usually there is a:
+
+```text
+Cite -> BibTeX
+```
+
+button.
+
+---
+
+# Recommended Practice
+
+- Keep all references in `references.bib`
+- Use meaningful citation keys:
+
+  
+
+```text
+authorYear
+```
+
+Example:
+
+```text
+fama1970
+blackscholes1973
+```
+
+This keeps citations readable and consistent.
