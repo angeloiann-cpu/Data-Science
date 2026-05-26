@@ -1,6 +1,6 @@
 # Data Science Seminar
 
-Hi guy this is the repository for the Data Science in Finance Seminar.
+Hi guys this is the repository for the Data Science in Finance Seminar.
 
 This guide will help you quickly set up your Python environment and install all required packages.
 
@@ -25,6 +25,10 @@ Extension marketplace:
 
 https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 
+> [!NOTE]
+> If you are using MacOS I **highly** recommend using an older LaTeX Workshop version.
+> Go in the VSCode Extenstions menu, click on 'Install specific version' and then choose 10.7.1
+> I ran into PDF rendering issues, when i used newer versions! 
 ---
 
 # Install TinyTeX
