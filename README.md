@@ -17,7 +17,7 @@ Install the following extensions:
 
 - Jupyter
 
-## LaTeX Development
+## Install LaTeX Workshop
 
 - LaTeX Workshop
 
@@ -27,6 +27,45 @@ https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 
 ---
 
+# Install TinyTeX
+
+TinyTeX installation guide:
+
+https://yihui.org/tinytex/
+
+---
+
+## macOS / Linux
+
+Run:
+
+```bash
+curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+```
+
+Restart the terminal afterwards.
+
+---
+
+## Windows
+
+Install TinyTeX from:
+
+https://yihui.org/tinytex/
+
+Then restart VSCode.
+
+---
+# Verify Installation
+Open a terminal and run: 
+
+```bash
+pdflatex --version
+```
+
+If version information appears, the installation succeeded.
+
+---
 # Recommended Workflow
 
 [A Step for step guide for point 1 and 2 can be found below](README.md#how-to-setup-the-python-environment)
@@ -46,35 +85,6 @@ https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 4. Compile the paper directly inside VSCode using LaTeX Workshop
 
 ---
-
-# Using LaTeX Workshop
-
-After installing the extension:
-
-1. Open `paper/paper.tex`
-
-2. Press:
-
-```text
-
-CTRL + ALT + B
-
-```
-
-to build the PDF.
-
-The compiled PDF preview should automatically appear inside VSCode.
-
----
-
-# Automatic Builds
-
-LaTeX Workshop automatically recompiles the document whenever you save the `.tex` file.
-
-This makes collaborative writing significantly easier.
-
----
-
 # How to setup the Python Environment
 ---
 
@@ -175,3 +185,36 @@ paper.tex           -> Main paper document
 references.bib      -> Bibliography
 figures/            -> Figures and plots
 output/             -> Compiled PDF output
+```
+
+# Build the Paper
+
+Open:
+
+```text
+paper/paper.tex
+```
+
+Then:
+- Save the file
+- Press:
+
+```text
+CTRL + ALT + B
+```
+
+to compile the PDF.
+
+To open the preview:
+
+```text
+CTRL + ALT + V
+```
+
+---
+
+# Automatic Package Installation
+
+TinyTeX automatically installs missing LaTeX packages when compiling.
+
+This keeps the installation lightweight while remaining fully functional.
