@@ -1,0 +1,17 @@
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+jupyter
+notebook
+ipykernel
+yfinance
+plotly
+openpyxl
+arch
+linearmodels
+cvxpy
+xgboost
