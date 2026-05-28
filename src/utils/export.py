@@ -7,9 +7,13 @@ import pandas as pd
 Utility class that helps save results for the paper in the correct folder.
 Works for figures, tables etc. 
 '''
+
+# Project Root 
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+
 class Directory(Enum):
-        FIGURE_DIR = Path("paper/figures")
-        TABLE_DIR = Path("paper/tables")
+        FIGURE_DIR = ROOT_DIR / "paper" / "figures"
+        TABLE_DIR = ROOT_DIR / "paper" / "tables"
         
 class PathBuilder:
 
@@ -17,13 +21,13 @@ class PathBuilder:
     def build(directory: Directory, filename) -> Path: 
         return Path(directory.value) / filename
 
-def save_figure(filename: str):
+def save_figure(fig, filename: str):
     """
-    Save current matplotlib figure to figure directory
+    Save a matplotlib figure to figure directory
     """
     path = PathBuilder.build(Directory.FIGURE_DIR, filename=f"{filename}.pdf")
 
-    plt.savefig(path) 
+    fig.savefig(path) 
 
     print(f"Figure: {filename} saved to: {path}")
 

@@ -1,5 +1,15 @@
 \documentclass[12pt,a4paper]{article}
 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{lmodern}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{natbib}
+
 \title{Advanced Seminar: Data Science in Finance}
 \author{
     Alper Bastoncou \\
@@ -14,7 +24,18 @@
 
 \section{Introduction}
 This is a section with content. 
-With the following command, we can also cite references \cite{fama1970}
+With the following command, we can also cite references \cite{fama1970}.
+
+\subsection{Demo Table}
+\input{tables/demo_table.tex}
+
+\subsection{Demo Figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/demo_plot.pdf}
+    \caption{Stock return comparison}
+    \label{fig:demo_plot}
+\end{figure}
 
 
 \bibliographystyle{plainnat}
