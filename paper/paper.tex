@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{lmodern}
+\usepackage{hyperref}
 
 \usepackage{graphicx}
 \usepackage{float}
@@ -11,33 +12,24 @@
 \usepackage{natbib}
 
 \title{Advanced Seminar: Data Science in Finance}
-\author{
-    Alper Bastoncou \\
-    Sofia de Sousa Ferreira Leite \\
-    Angelo Maria Iannone
-}
-
+\author{Angelo Maria Iannone}
 
 \begin{document}
 
-\maketitle
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
-\section{Introduction}
-This is a section with content. 
-With the following command, we can also cite references \cite{fama1970}.
+\input{sections/01_introduction.tex}
+\input{sections/02_literature_review.tex}
 
-\subsection{Demo Table}
-\input{tables/demo_table.tex}
+% Bibliography
 
-\subsection{Demo Figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/demo_plot.pdf}
-    \caption{Stock return comparison}
-    \label{fig:demo_plot}
-\end{figure}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Bibliography}
 
-
-\bibliographystyle{plainnat}
+\bibliographystyle{apalike}
 \bibliography{references}
+
 \end{document}

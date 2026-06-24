@@ -1,13 +1,23 @@
-\begin{thebibliography}{1}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\begin{thebibliography}{}
 
-\bibitem[Fama(1970)]{fama1970}
-Eugene~F. Fama.
-\newblock Efficient capital markets: A review of theory and empirical work.
-\newblock \emph{The Journal of Finance}, 25\penalty0 (2):\penalty0 383--417, 1970.
+\bibitem[Ang and Bekaert, 2002]{ang2002}
+Ang, A. and Bekaert, G. (2002).
+\newblock International asset allocation with regime shifts.
+\newblock {\em The Review of Financial Studies}, 15(4):1137--1187.
+
+\bibitem[Hamilton, 1989]{hamilton1989b}
+Hamilton, J.~D. (1989).
+\newblock A new approach to the economic analysis of nonstationary time series and the business cycle.
+\newblock {\em Econometrica}, 57(2):357--384.
+
+\bibitem[Solnik, 1974]{solnik1974}
+Solnik, B.~H. (1974).
+\newblock Why not diversify internationally rather than domestically?
+\newblock {\em Financial Analysts Journal}, 30(4):48--54.
+
+\bibitem[Stărică and Granger, 2005]{starica2005}
+Stărică, C. and Granger, C. (2005).
+\newblock Nonstationarities in stock returns.
+\newblock {\em The Review of Economics and Statistics}, 87(3):503--522.
 
 \end{thebibliography}
