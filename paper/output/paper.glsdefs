@@ -1,0 +1,28 @@
+\glsdefs@newdocentry{sp500}%
+{%
+name={\acronymfont {\glsentryshort {sp500}}},%
+sort={S&P 500},%
+type={main},%
+first={S&P 500},%
+firstplural={S&P 500s},%
+text={S&P 500},%
+plural={S&P 500s},%
+description={Standard & Poor's 500 stock market index},%
+descriptionplural={Standard & Poor's 500 stock market index},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Standard & Poor's 500 stock market index},%
+longplural={Standard & Poor's 500 stock market indexs},%
+short={S&P 500},%
+shortplural={S&P 500s},%
+counter={page},%
+parent={},%
+%
+}%
+

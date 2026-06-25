@@ -1,7 +1,8 @@
 \section{Literature Review}
 \label{sec:literature_review}
 
-Financial markets exhibit periods of stress, increased volatility and negative returns \cite{}. 
+\subsection{Market Regimes and Diversification}
+Financial markets exhibit periods of stress, increased volatility and negative returns \cite{oertmann2026}. 
 Investors try to mitigate the risks arising from these movements, 
 by diversifying their investments internationally \cite{solnik1974}. However, in times of high volatility markets, empirical evidence suggests 
 that correlations between international markets increase \cite{ang2002}. 
@@ -9,15 +10,51 @@ This is especially relevant to international investors, because the benefits of 
 
 The market conditions underlying such periods are difficult to measure because they are not directly observable. Instead, they must be inferred from the often times very noisy financial data.
 \cite{hamilton1989b} introduced a Markov-switching framework for modeling unobserved changes in the 
-dynamics of macroeconomic business-cycles. The same framework has subsequently been adapted to financial markets \cite{}, where latent states are 
+dynamics of macroeconomic business-cycles. The same framework has subsequently been adapted to financial markets {?}, where latent states are 
 interpreted as market regimes characterized by different conditional return distributions, volatilities, and covariance structures.\\
 
 Within the relevant literature, it is proposed to account for market regimes, 
 in the context of portfolio construction \cite{ang2002}. Typical indications for market regimes that can be classified as "bear" markets for example, 
 include often periods of increased volatility, increased international market correlations or a 
-decrease in expected returns.\\
+decrease in expected returns.
 
+\subsection{Nonstationarity and Persistence}
 There is also empirical evidence that financial markets exhibit nonstationarity, meaning that return distributions are not constant and change over time.
-In an analysis on the dynamics of the S\&P 500, \cite{starica2005} for example report that returns are primarily concentrated in shifts of the uncoditional variance,
-suggesting that nonstationarities significantly affect the behavior of stock returns. Additionally, the findings also raise questions aroung persistence in stock returns, meaning whether past events influence current return dynamics, 
+In an analysis on the dynamics of the \gls{sp500}, \cite{starica2005} for example report that returns are primarily concentrated in shifts of the uncoditional variance,
+suggesting that nonstationarities significantly affect the behavior of stock returns. Additionally, the findings also raise questions around persistence in stock returns, meaning whether past events influence current return dynamics, 
 or if the observed nonstationarities are the primary drivers of persistence.  
+
+\subsection{Modelling Market Regimes}
+As stated in the sections above, market regimes are difficult to define precisely, but the literature generally refers to periods of distinct statistical properties in financial markets. Therefore, the central idea behind identifying a market regime is to classify certain statistical properties to a specific period in time.
+The financial literature on how to model market regimes is plentyful, but for the purpose of this seminar paper two categories are presented for classification: a rule-based and a probabilistic approach.
+
+A typical example for a rule-based approach to market regime classification is taken from a lecture \citep{oertmann2026}: Stock market returns are subdivided into up- and downmarkets. A month is classified as upmarket if the respective return is above average and the reverse is true for downmarkets.
+Given a series of $m$ up- and $n$ downmarkets, the following up and down-volatility measures are computed with equations \eqref{eq:upmarket-volatility} and \eqref{eq:downmarket-volatility} respectively: 
+
+\begin{align}
+\sigma_{up}=\sqrt{\frac{1}{m-1}\sum_{t=1}^{m}(r_{up,t}-mr_{full})^2}
+\label{eq:upmarket-volatility}
+\\
+\sigma_{down}=\sqrt{\frac{1}{n-1}\sum_{t=1}^{n}(r_{down,t}-nr_{full})^2}
+\label{eq:downmarket-volatility}
+\end{align}
+
+While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a widely discussed approach in practical papers is the use of probabilistic sequene modeling \citet{machinelearning2020_chapter7}. In this school of thought, 
+it is assumed that a latent (or unobservable) process evolving over time $X_t$, drives another, observable process $Y_t$, which can be observed either at all times or at some subset of times. Such a model is also refered to as a state-space model and it consists in describing the evolution of a latent state over time and the dependence of the observables on the latent state.
+This approach is interesting because unlike the above deterministic example, it also models nonstationarity and persistence. 
+The state-space model widely used in the literature is the \gls{hmm}. Such models are fitted using the \emph{Baum-Welch} Algorithm, in order to find the probability of realization of a hidden state sequence. 
+Additionally, the so called \emph{Viterbi Algorithm} is applied, to find the most likely sequence realization.  
+
+Essentially, there are several ways to model market regimes, the basic idea behind such a modelling approach is to categorize certain statistical qualities of a market, to a specific period in time. 
+The advantage of using Markov Models, is that temporal nonstationarity and persistence are also taken into account, compared to a rule-based approach, that does not account for temporal dependence. 
+
+\subsection{Summary and Research objective}
+The literature reviewed above establishes three points relevant to this paper. First, international diversification reduces portfolio risk when correlations between markets are low, but these benefits seem to weaken during periods of market stress because correlations tend to increase \citep{solnik1974,ang2002}.
+Second, Financial return processes exhibit nonstationarity which means that their statistical properties, particularly volatility and covariance structures, may change over time \citep{starica2005}. Third, market regimes are not directly observable and may therefore be represented as latent states inferred from observed data. 
+In contrast to a rule-based classification of up- and downmarkets, a Hidden Markov Model allows these latent states to evolve persistently through a Markov transition process. 
+
+These findings motivate \dots
+
+\phantomsection
+
+

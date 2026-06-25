@@ -3,31 +3,61 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
+%Maths package
+\usepackage{amsmath}
+
+% Refrences and Links
 \usepackage{lmodern}
 \usepackage{hyperref}
 
+% Figures and Tables
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{natbib}
 
-\title{Advanced Seminar: Data Science in Finance}
-\author{Angelo Maria Iannone}
+%Abbreviations
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\input{frontmatter/abbreviations}
+
+\title{Modelling Market Regimes:\\
+A comparison of rule-based and Gaussian Hidden Markov Model classification}
+\author{Angelo Maria Iannone\\[0.5cm]
+Advanced Seminar Data Science in Finance}
+\date{Summer Semester 2026}
+
 
 \begin{document}
 
+% Title page
+\makeatletter
+\input{frontmatter/titlepage}
+\makeatother
+
+% Roman numerals on the front matter
+\clearpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+
+\input{frontmatter/table_of_contents}
+\input{frontmatter/list_of_figures}
+\input{frontmatter/list_of_abbreviations}
+
+% Main text numbered in arabic numerals
 \clearpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
 \input{sections/01_introduction.tex}
 \input{sections/02_literature_review.tex}
+\input{sections/03_methodology.tex}
 
 % Bibliography
 
 \clearpage
 \phantomsection
-\addcontentsline{toc}{section}{Bibliography}
+\addcontentsline{toc}{section}{References}
 
 \bibliographystyle{apalike}
 \bibliography{references}
