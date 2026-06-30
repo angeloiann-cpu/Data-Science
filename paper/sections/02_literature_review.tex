@@ -19,7 +19,7 @@ include often periods of increased volatility, increased international market co
 decrease in expected returns.
 
 \subsection{Statistical Properties of Market Regimes}
-There is also empirical evidence that financial markets exhibit nonstationarity, meaning that return distributions are not constant and change over time.
+The empirical evidence suggests that financial markets exhibit nonstationarity, meaning that return distributions are not constant and change over time.
 In an analysis on the dynamics of the \gls{sp500}, \cite{starica2005} report that returns are primarily concentrated in shifts of the uncoditional variance,
 suggesting that nonstationarities significantly affect the behavior of stock returns. Additionally, the findings also raise questions around persistence in stock returns, meaning whether past events influence current return dynamics, 
 or if the observed nonstationarities are the primary drivers of persistence.  
@@ -41,37 +41,43 @@ Given a series of $m$ up- and $n$ downmarkets, the following up and down-volatil
 \end{align}
 
 \subsubsection{Gaussian Mixture Models}
-While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a widely discussed approach in practical papers is the use of probabilistic sequene modeling.
-Another approach for representing relationships between random variables, much like in the aforementioned market setting, is provided by mixture models \citep{machinelearning2020_chapter2}. 
-A well-known mixture model is the \gls{gmm}. Unlike a \gls{hmm}, this model assumes that observation are generated independently from a mixture of $K$ Gaussian components (or states). 
-Much like the \emph{Baum-Welch} Algorithm, the \gls{gmm} is also part of the \gls{expectationmaximization} algorithm family.\\
-
-Despite the similarities, Gaussian Mixture Models differ fundamentally from Hidden Markov Models. A \gls{gmm} assumes that observations are conditionally independent, and therefore does not model any temporal dependence between successive observations. 
-Instead, each observation is assumed to be drawn from one of the $K$ underlying Gaussian distributions. Within the Machine Learning literature, to determine the number of states needed to model the data, it is suggested to either use a \gls{ks} test or to base it on entropy criteria \citep{machinelearning2020_chapter2}.
-In theory, each of these distributions could be generalized to represent a market regime by defining a gaussian distribution for each state of the market. However, the important distinction is that these distributions are independent and therefore, explicitly omit the temporal dependency that is modeled with a \gls{hmm}. 
+While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a more sophisticated approach is provided by mixture models.
+Mixture models are probabilistic models that introduce latent (or hidden) variables, allowing complex probability distributions over observed variables to be represented by a combination of simpler underlying distributions \citep{bishop_chapter9}.
+This fits especially well, considering the fact that financial returns over long periods of time display fat tails and multimodality \textbf{(need a citation here)}.
+A well-known mixture model is the \gls{gmm}, which represents the observed data as a weighted combination of Gaussian probability distributions.
 Within the finance literature, \gls{gmm}s have been applied to identifying "correlation breakdowns", "market contagion", and "volatility shocks" \citep{machinelearning2020_chapter2}.
-These applications are closely related to market-regime identification, although they do not explicitly model the temporal evolution of regimes. 
+The model assumes that observations are drawn independently from a mixture of $K$ Gaussian components (or states) and is formally defined as \citep{bishop_gmm}: 
+
+\begin{align}
+p(x)=\sum_{k=1}^{K}\pi_k\mathcal{N}(x|\mu_k,\Sigma_k)
+\label{eq:gaussian-mixture-model}
+\end{align}
+Where $\pi = \{\pi_1,\dots{},\pi_K\}$ represents a set of weights, given to each normally distributed component (or state) of $K$ \citep{machinelearning2020_chapter2}. Each Gaussian density 
+$\mathcal{N}(x|\mu_k,\Sigma_k)$ is called a component of the mixture and has it's own mean $\mu_k$ and covariance and $\Sigma_k$ \citep{bishop_gmm}. 
+In theory, each of these distributions could be interpreted to represent a market regime by defining a gaussian distribution for each state of the market.
 
 \subsubsection{Hidden Markov Models}
-While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a widely discussed approach in practical papers is the use of probabilistic sequene modeling \citet{machinelearning2020_chapter7}. In this school of thought, 
-it is assumed that a latent (or unobservable) process evolving over time $X_t$, drives another, observable process $Y_t$, which can be observed either at all times or at some subset of times. Such a model is also refered to as a state-space model and it consists of describing the evolution of a latent state over time and the dependence of the observables on the latent state.
+A widely discussed approach in practical papers is the use of probabilistic sequene modeling \citet{machinelearning2020_chapter7}. In this school of thought, 
+it is assumed that a latent (or unobservable) process evolving over time $X_t$, drives another, observable process $Y_t$, which can be observed either at all times or at some subset of times \citep{machinelearning2020_chapter7}.
+Such a model is also refered to as a state-space model and it consists of describing the evolution of a latent state over time and the dependence of the observables on the latent state.
 The model assumes a sequence of states $\boldsymbol{s}:=\{s_t\}^T_{i=1}$ and a sequence of observations $\boldsymbol{y}=\{y_t\}^T_{t=1}$. Then, the joint distribution is given as the product of transition probability densities $p(s_t|s_{t-1})$ and emission probability densities, $p(y_t|s_t)$.
 Formally, this joint distribution is defined as: 
 
 \begin{align}
-p(\boldsymbol{s},\boldsymbol{y})=p(s_1)p(y_1|s_1)\prod_{t=2}^Tp(s_t|s_{t-1}p(y_t|s_t)
+p(\boldsymbol{s},\boldsymbol{y})=p(s_1)p(y_1|s_1)\prod_{t=2}^Tp(s_t|s_{t-1})p(y_t|s_t)
 \label{eq:joint distribution of states and observations}
 \end{align}
 
-This approach is interesting because unlike the above rule-based example, it also models persistence, meaning that the hidden state of an observation is dependent on the hidden state of the preceding observation. 
-The state-space model widely used in the literature is the \gls{hmm}. The model parameters are estimated using the \emph{Baum-Welch} Algorithm, which is an \gls{expectationmaximization} algorithm for maximum likelihood estimation. 
-This algorithm is also known as the \emph{Forward - Backward} algorithm and it finds the probability of the realization of a hidden state sequence. 
-Additionally, the so called \emph{Viterbi Algorithm} is applied, to infer the most likely sequence realization.  
+This approach is interesting because unlike the above rule-based example, or the \gls{gmm}, it also models the empirical phenomenon of persistence, meaning that the hidden state of an observation is dependent on the hidden state of the preceding observation. 
+The state-space model widely used in the literature is the \gls{hmm}. The model parameters are estimated using the \emph{Baum-Welch} Algorithm, an \gls{expectationmaximization} algorithm for maximum likelihood estimation. 
+After parameter estimation, the so called \emph{Viterbi Algorithm} is applied, to infer the most likely sequence of hidden states \citep{machinelearning2020_chapter7}.\\
 
-Essentially, there are several ways to model market regimes, the basic idea behind such a modelling approach is to categorize certain statistical qualities of a market, to a specific period in time. 
-The advantage of using Markov Models, is that the empirical phenomenon of persistence is also taken into account, compared to a rule-based approach or a \gls{gmm}, that does not account for temporal dependence. 
+Compared to the Gaussian Mixture Model, the principal distinction of the Hidden Markov Model lies in the treatment of the latent state. While a \gls{gmm} assumes that observations are conditionally independent and assigns each observation to one of several Gaussian components independently of previous observations.
+A Hidden Markov Model, however, assumes that the latent state of the currently observable variable evolves according to the latent state in the preceding time period.
 
 \subsection{Portfolio construction under consideration of Market Regimes}
+Constructing a Portfolio under 
+
 % Still needs a Portfolio section 
 \subsubsection{Mean-Variance Portfolio}
 
@@ -79,6 +85,14 @@ The advantage of using Markov Models, is that the empirical phenomenon of persis
 The literature reviewed above establishes three points relevant to this paper. First, international diversification reduces portfolio risk when correlations between markets are low, but these benefits seem to weaken during periods of market stress because correlations tend to increase \citep{solnik1974,ang2002}.
 Second, Financial return processes exhibit nonstationarity which means that their statistical properties, particularly volatility and covariance structures, may change over time \citep{starica2005}. Third, market regimes are not directly observable and may therefore be represented as latent states inferred from observed data. 
 In contrast to a rule-based classification of up- and downmarkets, a Hidden Markov Model allows these latent states to evolve persistently through a Markov transition process. A \gls{gmm} could potentially function as a more efficient clustering method, compared to a simple rule-based approach. 
+
+Essentially, there are several ways to model market regimes. The basic idea behind such a modelling approach is to categorize certain statistical qualities of a market, to a specific period in time. 
+The advantage of using Markov Models, is that the empirical phenomenon of persistence is also taken into account, compared to a rule-based approach or a \gls{gmm}, that does not account for temporal dependence. 
+Despite the similarities, Gaussian Mixture Models differ fundamentally from Hidden Markov Models. A \gls{gmm} assumes that observations are conditionally independent, and therefore does not model any temporal dependence between successive observations. 
+Instead, each observation is assumed to be drawn from one of the $K$ underlying Gaussian distributions. Within the Machine Learning literature, to determine the number of states needed to model the data, it is suggested to either use a \gls{ks} test or to base it on entropy criteria \citep{machinelearning2020_chapter2}.
+In theory, each of these distributions could be interpreted to represent a market regime by defining a gaussian distribution for each state of the market. However, the important distinction is that these distributions are independent and therefore, explicitly omit the temporal dependency that is modeled with a \gls{hmm}. 
+Within the finance literature, \gls{gmm}s have been applied to identifying adjacent topics like "correlation breakdowns", "market contagion", and "volatility shocks" \citep{machinelearning2020_chapter2}.
+These applications are closely related to market-regime identification, although they do not explicitly model the temporal evolution of regimes. 
 
 % Summary on Portfolio literature
 
