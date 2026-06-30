@@ -5,8 +5,13 @@ Ang, A. and Bekaert, G. (2002).
 \newblock International asset allocation with regime shifts.
 \newblock {\em The Review of Financial Studies}, 15(4):1137--1187.
 
-\bibitem[Dixon et~al., 2020]{machinelearning2020_chapter7}
-Dixon, M.~F., Halperin, I., and Bilokon, P. (2020).
+\bibitem[Dixon et~al., 2020a]{machinelearning2020_chapter2}
+Dixon, M.~F., Halperin, I., and Bilokon, P. (2020a).
+\newblock {\em Machine Learning in Finance: From Theory to Practice}, pages 47--76.
+\newblock Springer.
+
+\bibitem[Dixon et~al., 2020b]{machinelearning2020_chapter7}
+Dixon, M.~F., Halperin, I., and Bilokon, P. (2020b).
 \newblock {\em Machine Learning in Finance: From Theory to Practice}, pages 221--235.
 \newblock Springer.
 

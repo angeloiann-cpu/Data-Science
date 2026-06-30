@@ -1,7 +1,7 @@
 \section{Literature Review}
 \label{sec:literature_review}
 
-\subsection{Market Regimes and Diversification}
+\subsection{Market Regimes in Financial Markets}
 Financial markets exhibit periods of stress, increased volatility and negative returns \cite{oertmann2026}. 
 Investors try to mitigate the risks arising from these movements, 
 by diversifying their investments internationally \cite{solnik1974}. However, in times of high volatility markets, empirical evidence suggests 
@@ -18,17 +18,18 @@ in the context of portfolio construction \cite{ang2002}. Typical indications for
 include often periods of increased volatility, increased international market correlations or a 
 decrease in expected returns.
 
-\subsection{Nonstationarity and Persistence}
+\subsection{Statistical Properties of Market Regimes}
 There is also empirical evidence that financial markets exhibit nonstationarity, meaning that return distributions are not constant and change over time.
-In an analysis on the dynamics of the \gls{sp500}, \cite{starica2005} for example report that returns are primarily concentrated in shifts of the uncoditional variance,
+In an analysis on the dynamics of the \gls{sp500}, \cite{starica2005} report that returns are primarily concentrated in shifts of the uncoditional variance,
 suggesting that nonstationarities significantly affect the behavior of stock returns. Additionally, the findings also raise questions around persistence in stock returns, meaning whether past events influence current return dynamics, 
 or if the observed nonstationarities are the primary drivers of persistence.  
 
-\subsection{Modelling Market Regimes}
+\subsection{Methods for Regime Identification}
 As stated in the sections above, market regimes are difficult to define precisely, but the literature generally refers to periods of distinct statistical properties in financial markets. Therefore, the central idea behind identifying a market regime is to classify certain statistical properties to a specific period in time.
 The financial literature on how to model market regimes is plentyful, but for the purpose of this seminar paper two categories are presented for classification: a rule-based and a probabilistic approach.
 
-A typical example for a rule-based approach to market regime classification is taken from a lecture \citep{oertmann2026}: Stock market returns are subdivided into up- and downmarkets. A month is classified as upmarket if the respective return is above average and the reverse is true for downmarkets.
+\subsubsection{Rule-based Regime Identification}
+A heuristic example for a rule-based approach to market regime classification is taken from a lecture \citep{oertmann2026}: Stock market returns are subdivided into up- and downmarkets. A month is classified as upmarket if the respective return is above average and the reverse is true for downmarkets.
 Given a series of $m$ up- and $n$ downmarkets, the following up and down-volatility measures are computed with equations \eqref{eq:upmarket-volatility} and \eqref{eq:downmarket-volatility} respectively: 
 
 \begin{align}
@@ -39,21 +40,49 @@ Given a series of $m$ up- and $n$ downmarkets, the following up and down-volatil
 \label{eq:downmarket-volatility}
 \end{align}
 
+\subsubsection{Gaussian Mixture Models}
+While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a widely discussed approach in practical papers is the use of probabilistic sequene modeling.
+Another approach for representing relationships between random variables, much like in the aforementioned market setting, is provided by mixture models \citep{machinelearning2020_chapter2}. 
+A well-known mixture model is the \gls{gmm}. Unlike a \gls{hmm}, this model assumes that observation are generated independently from a mixture of $K$ Gaussian components (or states). 
+Much like the \emph{Baum-Welch} Algorithm, the \gls{gmm} is also part of the \gls{expectationmaximization} algorithm family.\\
+
+Despite the similarities, Gaussian Mixture Models differ fundamentally from Hidden Markov Models. A \gls{gmm} assumes that observations are conditionally independent, and therefore does not model any temporal dependence between successive observations. 
+Instead, each observation is assumed to be drawn from one of the $K$ underlying Gaussian distributions. Within the Machine Learning literature, to determine the number of states needed to model the data, it is suggested to either use a \gls{ks} test or to base it on entropy criteria \citep{machinelearning2020_chapter2}.
+In theory, each of these distributions could be generalized to represent a market regime by defining a gaussian distribution for each state of the market. However, the important distinction is that these distributions are independent and therefore, explicitly omit the temporal dependency that is modeled with a \gls{hmm}. 
+Within the finance literature, \gls{gmm}s have been applied to identifying "correlation breakdowns", "market contagion", and "volatility shocks" \citep{machinelearning2020_chapter2}.
+These applications are closely related to market-regime identification, although they do not explicitly model the temporal evolution of regimes. 
+
+\subsubsection{Hidden Markov Models}
 While the above example is sufficient to gain an intuitive grasp on the classification of market regimes, a widely discussed approach in practical papers is the use of probabilistic sequene modeling \citet{machinelearning2020_chapter7}. In this school of thought, 
-it is assumed that a latent (or unobservable) process evolving over time $X_t$, drives another, observable process $Y_t$, which can be observed either at all times or at some subset of times. Such a model is also refered to as a state-space model and it consists in describing the evolution of a latent state over time and the dependence of the observables on the latent state.
-This approach is interesting because unlike the above deterministic example, it also models nonstationarity and persistence. 
-The state-space model widely used in the literature is the \gls{hmm}. Such models are fitted using the \emph{Baum-Welch} Algorithm, in order to find the probability of realization of a hidden state sequence. 
-Additionally, the so called \emph{Viterbi Algorithm} is applied, to find the most likely sequence realization.  
+it is assumed that a latent (or unobservable) process evolving over time $X_t$, drives another, observable process $Y_t$, which can be observed either at all times or at some subset of times. Such a model is also refered to as a state-space model and it consists of describing the evolution of a latent state over time and the dependence of the observables on the latent state.
+The model assumes a sequence of states $\boldsymbol{s}:=\{s_t\}^T_{i=1}$ and a sequence of observations $\boldsymbol{y}=\{y_t\}^T_{t=1}$. Then, the joint distribution is given as the product of transition probability densities $p(s_t|s_{t-1})$ and emission probability densities, $p(y_t|s_t)$.
+Formally, this joint distribution is defined as: 
+
+\begin{align}
+p(\boldsymbol{s},\boldsymbol{y})=p(s_1)p(y_1|s_1)\prod_{t=2}^Tp(s_t|s_{t-1}p(y_t|s_t)
+\label{eq:joint distribution of states and observations}
+\end{align}
+
+This approach is interesting because unlike the above rule-based example, it also models persistence, meaning that the hidden state of an observation is dependent on the hidden state of the preceding observation. 
+The state-space model widely used in the literature is the \gls{hmm}. The model parameters are estimated using the \emph{Baum-Welch} Algorithm, which is an \gls{expectationmaximization} algorithm for maximum likelihood estimation. 
+This algorithm is also known as the \emph{Forward - Backward} algorithm and it finds the probability of the realization of a hidden state sequence. 
+Additionally, the so called \emph{Viterbi Algorithm} is applied, to infer the most likely sequence realization.  
 
 Essentially, there are several ways to model market regimes, the basic idea behind such a modelling approach is to categorize certain statistical qualities of a market, to a specific period in time. 
-The advantage of using Markov Models, is that temporal nonstationarity and persistence are also taken into account, compared to a rule-based approach, that does not account for temporal dependence. 
+The advantage of using Markov Models, is that the empirical phenomenon of persistence is also taken into account, compared to a rule-based approach or a \gls{gmm}, that does not account for temporal dependence. 
+
+\subsection{Portfolio construction under consideration of Market Regimes}
+% Still needs a Portfolio section 
+\subsubsection{Mean-Variance Portfolio}
 
 \subsection{Summary and Research objective}
 The literature reviewed above establishes three points relevant to this paper. First, international diversification reduces portfolio risk when correlations between markets are low, but these benefits seem to weaken during periods of market stress because correlations tend to increase \citep{solnik1974,ang2002}.
 Second, Financial return processes exhibit nonstationarity which means that their statistical properties, particularly volatility and covariance structures, may change over time \citep{starica2005}. Third, market regimes are not directly observable and may therefore be represented as latent states inferred from observed data. 
-In contrast to a rule-based classification of up- and downmarkets, a Hidden Markov Model allows these latent states to evolve persistently through a Markov transition process. 
+In contrast to a rule-based classification of up- and downmarkets, a Hidden Markov Model allows these latent states to evolve persistently through a Markov transition process. A \gls{gmm} could potentially function as a more efficient clustering method, compared to a simple rule-based approach. 
 
-These findings motivate \dots
+% Summary on Portfolio literature
+
+\emph{These findings motivate the research question, whether modelling persistence improves the identification of financially meaningful market regimes.} % Open to change of course
 
 \phantomsection
 
